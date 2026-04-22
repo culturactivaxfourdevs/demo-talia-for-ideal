@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDEAL Barcelona – Centre d'Arts Digitals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- PAS 1: Afegeix aqui el <link> CSS del widget de n8n quan el tinguis -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #000; color: #fff; font-family: 'Barlow', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .ticker-wrap { background: #fff; color: #000; overflow: hidden; white-space: nowrap; padding: 9px 0; cursor: pointer; }
+    .ticker-track { display: inline-flex; animation: ticker 22s linear infinite; }
+    .ticker-item { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0 48px; }
+    .ticker-item::after { content: ' \2736'; margin-left: 48px; opacity: 0.3; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    nav { position: sticky; top: 0; z-index: 100; background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 58px; }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-logo-fallback { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; display: none; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-lang { display: flex; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .nav-lang a { transition: color 0.2s; }
+    .nav-lang a:hover, .nav-lang a.active { color: #fff; }
+    .nav-lang .sep { color: rgba(255,255,255,0.12); }
+
+    .hero { position: relative; width: 100%; background: #111; aspect-ratio: 16/7; overflow: hidden; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%); }
+    .hero-cta { position: absolute; bottom: 32px; left: 32px; }
+    .btn-white { display: inline-block; background: #fff; color: #000; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; transition: background 0.2s; }
+    .btn-white:hover { background: #ddd; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .section { padding: 80px 0; }
+    .divider { border-top: 1px solid rgba(255,255,255,0.08); }
+    .section-heading { font-family: 'Barlow Condensed', sans-serif; font-size: 38px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 40px; }
+
+    .agenda-card { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(255,255,255,0.1); }
+    .agenda-img { overflow: hidden; background: #111; aspect-ratio: 4/3; }
+    .agenda-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .agenda-card:hover .agenda-img img { transform: scale(1.05); }
+    .agenda-info { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid rgba(255,255,255,0.1); }
+    .agenda-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+    .agenda-title { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.08; margin-bottom: 20px; }
+    .agenda-desc { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 40px; }
+
+    .features-strip { background: #080808; border-top: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.07); }
+    .feature { background: #080808; padding: 44px 28px; text-align: center; }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; opacity: 0.4; }
+    .feature-label { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .faq-btn { width: 100%; background: none; border: none; color: #fff; text-align: left; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .faq-btn:hover { opacity: 0.7; }
+    .faq-plus { font-size: 22px; font-weight: 300; flex-shrink: 0; color: rgba(255,255,255,0.35); transition: transform 0.3s, color 0.2s; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); color: #fff; }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-body { max-height: 280px; }
+    .faq-body-inner { padding-bottom: 24px; font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 700px; }
+    .faq-body-inner a { color: rgba(255,255,255,0.8); text-decoration: underline; text-underline-offset: 3px; }
+
+    .ons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .ons-block { margin-bottom: 28px; }
+    .ons-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px; }
+    .ons-val { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.8); }
+    .ons-val a { border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .t-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; font-size: 13px; color: rgba(255,255,255,0.45); }
+    .t-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.18); padding: 2px 7px; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+    .map-box { aspect-ratio: 4/3; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; background: #111; }
+    .map-box iframe { width: 100%; height: 100%; border: none; filter: grayscale(1) invert(1) contrast(0.85) brightness(0.85); }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.07); padding: 36px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-demo { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.12); }
+
+    /* Colors IDEAL per al widget de n8n */
+    :root {
+      --chat--color-primary: #fff;
+      --chat--color-primary-shade-50: #e0e0e0;
+      --chat--color-primary-shade-100: #ccc;
+      --chat--color-secondary: #111;
+      --chat--color-white: #fff;
+      --chat--color-light: #1a1a1a;
+      --chat--color-light-shade-50: #222;
+      --chat--color-dark: #fff;
+      --chat--color-medium: rgba(255,255,255,0.4);
+      --chat--header--background: #111;
+      --chat--header--color: #fff;
+      --chat--message--bot--background: #1a1a1a;
+      --chat--message--bot--color: #fff;
+      --chat--message--user--background: #fff;
+      --chat--message--user--color: #000;
+      --chat--toggle--background: #fff;
+      --chat--toggle--hover--background: #e0e0e0;
+      --chat--toggle--color: #000;
+      --chat--toggle--size: 52px;
+      --chat--window--width: 370px;
+      --chat--window--height: 570px;
+      --chat--border-radius: 0px;
+    }
+
+    @media (max-width: 800px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .wrap { padding: 0 16px; }
+      .section { padding: 56px 0; }
+      .agenda-card { grid-template-columns: 1fr; }
+      .agenda-info { padding: 28px 20px; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+      .features-grid { grid-template-columns: repeat(2,1fr); }
+      .ons-grid { grid-template-columns: 1fr; }
+      footer { padding: 28px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="https://feverup.com/m/530275/ca" target="_blank" rel="noopener">
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+        <span class="ticker-item">Els Ultims Dies de Pompeia - Compra d'entrades</span>
+      </div>
+    </div>
+  </a>
+
+  <nav>
+    <div class="nav-logo">
+      <img src="https://idealbarcelona.com/wp-content/uploads/2020/09/Lark20200923-172451.png" alt="IDEAL Barcelona" onerror="this.style.display='none';document.querySelector('.nav-logo-fallback').style.display='block'" />
+      <span class="nav-logo-fallback">IDEAL</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#agenda" class="active">Agenda</a></li>
+      <li><a href="#">Ideal</a></li>
+      <li><a href="#">Lab</a></li>
+      <li><a href="#on-som">On som</a></li>
+      <li><a href="#">Horaris i preus</a></li>
+      <li><a href="#faqs">FAQs</a></li>
+    </ul>
+    <div class="nav-lang">
+      <a href="#" class="active">ca</a><span class="sep"> · </span><a href="#">es</a><span class="sep"> · </span><a href="#">en</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <img src="https://idealbarcelona.com/wp-content/uploads/2026/02/MAD_Pompeya_SetVexy_LowRes_DSC_3388-Enhanced-NR-scaled.jpg" alt="Els Ultims Dies de Pompeia" />
+    <div class="hero-gradient"></div>
+    <div class="hero-cta">
+      <a href="https://feverup.com/m/530275/ca" target="_blank" rel="noopener" class="btn-white">Compra les teves entrades</a>
+    </div>
+  </div>
+
+  <div id="agenda" class="divider">
+    <div class="wrap"><div class="section">
+      <h2 class="section-heading">Agenda</h2>
+      <div class="agenda-card">
+        <div class="agenda-img">
+          <img src="https://idealbarcelona.com/wp-content/uploads/2026/02/Disseny-sense-titol-1024x724.jpg" alt="Els Ultims Dies de Pompeia" />
+        </div>
+        <div class="agenda-info">
+          <div>
+            <div class="agenda-date">A partir del 20 de marc, 2026</div>
+            <h3 class="agenda-title">Els Ultims Dies de Pompeia - IDEAL Montjuic</h3>
+            <p class="agenda-desc">Despres de l'estrena mundial a Madrid el 2023, seguit de l'exit a grans ciutats com Londres, Viena o Beijing, l'exposicio immersiva guardonada com a "Millor Exposicio Historica 2024" arriba a Barcelona. Reviu els darrers moments de l'antiga Roma en una experiencia total per als sentits.</p>
+          </div>
+          <a href="https://feverup.com/m/530275/ca" target="_blank" rel="noopener" class="btn-white">Compra les teves entrades</a>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="features-strip">
+    <div class="wrap">
+      <div class="features-grid">
+        <div class="feature"><div class="feature-icon">360</div><div class="feature-label">Projeccions 360</div></div>
+        <div class="feature"><div class="feature-icon">1K</div><div class="feature-label">1.000 m2 de pantalla</div></div>
+        <div class="feature"><div class="feature-icon">VR</div><div class="feature-label">Realitat virtual</div></div>
+        <div class="feature"><div class="feature-icon">ART</div><div class="feature-label">Art digital</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="faqs" class="divider">
+    <div class="wrap"><div class="section">
+      <h2 class="section-heading">Preguntes frequents</h2>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-btn">Quines son les hores d'obertura?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">El centre esta obert de <strong>10:00h a 22:00h</strong>. Consulta els horaris especials a la <a href="https://feverup.com/m/530275/ca" target="_blank">web de compra d'entrades</a>.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Hi ha descomptes disponibles?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Si. Disposem de descomptes per a persones amb discapacitat (acompanyant gratuit), menors de 12 anys, majors de 65 anys i families. Els <strong>dilluns</strong> son els Dies IDEAL, amb preus reduits per a tothom.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Puc canviar o cancel·lar les meves entrades?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Per politica d'empresa <strong>no es realitzen canvis ni devolucions</strong>. Si no tens decidida l'hora exacta, et recomanem comprar una targeta regal.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Amb quina antelacio he d'arribar?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Es recomana arribar <strong>5 minuts abans</strong>. Podeu accedir fins a <strong>10 minuts tard</strong> de l'hora indicada a l'entrada.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">L'espai es accessible per a persones amb mobilitat reduida?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Si, l'espai <strong>esta totalment adaptat per circular-hi amb cadira de rodes</strong> i per a persones amb mobilitat reduida.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Si porto ulleres, podre fer servir les de realitat virtual?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Si, les ulleres de realitat virtual <strong>es poden posar sobre les ulleres de visio</strong> sense cap problema.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Es poden fer fotos dins del recinte?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Si, es poden fer fotos en tot el recinte <strong>pero sense flaix</strong>. T'animem a compartir-les etiquetant <strong>@idealbarcelona</strong>.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">No m'ha arribat el correu de confirmacio de compra<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">Comprova primer la <strong>carpeta de correu brossa</strong>. Si el banc ha efectuat el cobrament i no has rebut confirmacio, presenta't a taquilla o escriu a <a href="mailto:info@idealbarcelona.com">info@idealbarcelona.com</a>.</div></div></div>
+        <div class="faq-item"><button class="faq-btn">Es poden deixar objectes a la taquilla?<span class="faq-plus">+</span></button><div class="faq-body"><div class="faq-body-inner">No, no disposem de servei de guarda-roba.</div></div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div id="on-som" class="divider">
+    <div class="wrap"><div class="section">
+      <h2 class="section-heading">On som</h2>
+      <div class="ons-grid">
+        <div>
+          <div class="ons-block">
+            <div class="ons-label">Adreca</div>
+            <div class="ons-val">Pl. de Carles Buigas, 7<br />Sants-Montjuic, 08038 Barcelona</div>
+          </div>
+          <div class="ons-block">
+            <div class="ons-label">Com arribar-hi</div>
+            <div class="t-row"><span class="t-badge">Metro</span>L3 - Espanya (10 min a peu)</div>
+            <div class="t-row"><span class="t-badge">Bus</span>Linies 13, 23, 150</div>
+            <div class="t-row"><span class="t-badge">Parking</span>Avda. Reina Maria Cristina</div>
+          </div>
+          <div class="ons-block">
+            <div class="ons-label">Atencio al public</div>
+            <div class="ons-val" style="font-size:17px">
+              Dilluns a divendres, 10-14h<br />
+              <a href="tel:930107458">930 10 74 58</a><br />
+              <a href="mailto:info@idealbarcelona.com">info@idealbarcelona.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="map-box">
+          <iframe title="Mapa IDEAL Montjuic" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d748.0!2d2.14985!3d41.37095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a39879e8f31d%3A0x92c0679c5bf5b8e6!2sIDEAL%20Montju%C3%AFc!5e0!3m2!1sca!2ses!4v1680000000000"></iframe>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">IDEAL</div>
+    <div class="footer-links">
+      <a href="https://idealbarcelona.com/politica-de-privacitat/" target="_blank">Politica de privacitat</a>
+      <a href="https://idealbarcelona.com/avis-legal/" target="_blank">Avis legal</a>
+    </div>
+    <div class="footer-demo">Demo · Powered by TALIA</div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+  <!-- PAS 2: Enganxa aqui el codi del widget de n8n quan el tinguis -->
+  <!-- El codi tindra una forma similar a:
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    createChat({
+      webhookUrl: 'https://EL-TEU-WEBHOOK.app.n8n.cloud/webhook/XXXX/chat',
+      initialMessages: [
+        'Benvingut/da a IDEAL Barcelona!',
+        'En que et puc ajudar?'
+      ],
+      i18n: { en: { title: 'IDEAL Assistant', subtitle: "Centre d'Arts Digitals", inputPlaceholder: 'Escriu el teu missatge...' } }
+    });
+  </script>
+  -->
+
+</body>
+</html>
