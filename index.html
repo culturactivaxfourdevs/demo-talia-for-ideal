@@ -497,25 +497,27 @@
   <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
   createChat({
-    webhookUrl: 'https://n8n-3-w6wn.onrender.com/webhook/e0ad6d4c-9aca-475e-8217-253ccf1f4d84/chat',
-    initialMessages: [
-      'Benvingut/da a IDEAL Barcelona!',
-      'Sóc la TALIA, la teva assistent virtual. En què et puc ajudar?'
-    ], 
-    i18n: {
-      en: {
-        title: 'IDEAL Assistant',
-        subtitle: "Centre d'Arts Digitals de Barcelona",
-        footer: '',
-        getStarted: 'Comença la conversa',
-        inputPlaceholder: 'Escriu el teu missatge...',
-        closeButtonTooltip: 'Tancar',
-      },
-    },
-
-    showWelcomeScreen: false,
-    loadPreviousSession: false,
-  });
+  webhookUrl: 'https://n8n-3-w6wn.onrender.com/webhook/e0ad6d4c-9aca-475e-8217-253ccf1f4d84/chat',
+  mode: 'window',
+  showWelcomeScreen: false,
+  enableStreaming: true,
+  chatInputKey: 'chatInput',
+  defaultLanguage: 'en',
+  initialMessages: [
+    'Benvingut/da a IDEAL Barcelona!',
+    'Sóc la TALIA, la teva assistent virtual. En què et puc ajudar?'
+  ],
+  i18n: {
+    en: {
+      title: 'IDEAL Assistant',
+      subtitle: "Centre d'Arts Digitals de Barcelona",
+      footer: '',
+      getStarted: 'Comença la conversa',
+      inputPlaceholder: 'Escriu el teu missatge...',
+      closeButtonTooltip: 'Tancar',
+    }
+  }
+});
 </script>
 
 </body>
