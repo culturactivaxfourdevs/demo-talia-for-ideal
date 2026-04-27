@@ -124,6 +124,7 @@
       footer { padding: 28px 16px; }
     }
   </style>
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
   <style>
     /* ═══════════════════════════════════════════════
    TALIA x IDEAL Barcelona — n8n Chat Widget CSS
@@ -166,6 +167,9 @@
   --chat--toggle--active--background: #cccccc;
   --chat--toggle--color: #000000;
   --chat--toggle--size: 54px;
+  --chat--toggle--width: 54px;
+  --chat--toggle--height: 54px;
+  --chat--toggle--border-radius: 0px;
 
   /* Ventana del chat */
   --chat--window--width: 375px;
@@ -271,46 +275,84 @@
 
 /* ── Input area ── */
 .n8n-chat .chat-input,
-[class*="chat-input"] {
+.chat-window .chat-input,
+.n8n-chat .chat-inputs,
+.chat-window .chat-inputs {
   background: #000000 !important;
   border-top: 1px solid rgba(255,255,255,0.08) !important;
-  padding: 12px 16px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+  padding: 14px 16px !important;
 }
 
 /* ── Input textarea ── */
 .n8n-chat .chat-input textarea,
 .n8n-chat .chat-input input,
-[class*="chat-input"] textarea,
-[class*="chat-input"] input {
+.chat-window .chat-input textarea,
+.chat-window .chat-input input,
+.n8n-chat .chat-inputs textarea,
+.chat-window .chat-inputs textarea {
   background: #111111 !important;
   border: 1px solid rgba(255,255,255,0.1) !important;
   border-radius: 0 !important;
   color: #ffffff !important;
+  flex: 1 1 auto !important;
   font-family: 'Barlow', sans-serif !important;
   font-size: 14px !important;
   font-weight: 300 !important;
+  line-height: 1.35 !important;
+  min-height: 46px !important;
+  max-height: 120px !important;
+  padding: 12px 14px !important;
+  resize: none !important;
+  width: auto !important;
+}
+
+.n8n-chat .chat-inputs-controls,
+.chat-window .chat-inputs-controls {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  align-items: flex-end !important;
 }
 
 .n8n-chat .chat-input textarea::placeholder,
-.n8n-chat .chat-input input::placeholder {
+.n8n-chat .chat-input input::placeholder,
+.n8n-chat .chat-inputs textarea::placeholder {
   color: rgba(255,255,255,0.25) !important;
 }
 
 /* ── Botón enviar ── */
 .n8n-chat .chat-input button[type="submit"],
-[class*="chat-input"] button {
+.n8n-chat .chat-input button,
+.chat-window .chat-input button,
+.n8n-chat .chat-input-send-button,
+.chat-window .chat-input-send-button {
   background: #ffffff !important;
   color: #000000 !important;
   border-radius: 0 !important;
   border: none !important;
+  display: grid !important;
+  flex: 0 0 46px !important;
+  height: 46px !important;
+  margin: 0 !important;
+  min-width: 46px !important;
+  padding: 0 !important;
+  place-items: center !important;
   transition: background 0.2s !important;
+  width: 46px !important;
 }
 
-.n8n-chat .chat-input button[type="submit"]:hover {
+.n8n-chat .chat-input button[type="submit"]:hover,
+.n8n-chat .chat-input button:hover,
+.chat-window .chat-input button:hover,
+.n8n-chat .chat-input-send-button:hover,
+.chat-window .chat-input-send-button:hover {
   background: #e0e0e0 !important;
 }
 
 /* ── Botón flotante ── */
+.n8n-chat .chat-window-wrapper .chat-window-toggle,
 .n8n-chat .chat-toggle,
 [class*="chat-toggle"],
 [class*="chat-bubble"] {
@@ -323,6 +365,26 @@
   transition: background 0.2s, transform 0.2s !important;
 }
 
+.n8n-chat .chat-window-wrapper .chat-window-toggle svg,
+.n8n-chat .chat-toggle svg,
+[class*="chat-toggle"] svg,
+[class*="chat-bubble"] svg {
+  color: #000000 !important;
+  display: block !important;
+  fill: none !important;
+  height: 28px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.4 !important;
+  width: 28px !important;
+}
+
+.n8n-chat .chat-window-wrapper .chat-window-toggle svg path,
+.n8n-chat .chat-window-wrapper .chat-window-toggle svg line,
+.n8n-chat .chat-window-wrapper .chat-window-toggle svg polyline {
+  stroke: currentColor !important;
+}
+
+.n8n-chat .chat-window-wrapper .chat-window-toggle:hover,
 .n8n-chat .chat-toggle:hover,
 [class*="chat-toggle"]:hover {
   background: #e0e0e0 !important;
@@ -351,7 +413,6 @@
 .n8n-chat ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 0; }
 .n8n-chat ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
   </style>
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
 
