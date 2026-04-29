@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -613,31 +612,11 @@
     });
   </script>
 
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-    createChat({
-      webhookUrl: 'https://n8n-3-w6wn.onrender.com/webhook/e0ad6d4c-9aca-475e-8217-253ccf1f4d84/chat',
-      mode: 'window',
-      showWelcomeScreen: false,
-      enableStreaming: true,
-      chatInputKey: 'chatInput',
-      defaultLanguage: 'es',
-      initialMessages: [
-        'Bienvenido/a al TNC.',
-        'Soy TALIA, tu asistente virtual. ¿Te ayudo a encontrar espectáculos, entradas, horarios o información práctica?'
-      ],
-      i18n: {
-        es: {
-          title: 'TNC Assistant',
-          subtitle: 'Teatre Nacional de Catalunya',
-          footer: '',
-          getStarted: 'Comenzar',
-          inputPlaceholder: 'Escribe tu mensaje...',
-          closeButtonTooltip: 'Cerrar',
-        }
-      }
-    });
-  </script>
+  <script
+    src="https://talia-client.vercel.app/widget.js"
+    data-tenant="bd1ddb0a-02db-4035-877a-afa3662147ac"
+    data-name="TNC Assistant"
+    data-color="#8056cf"
+  ></script>
 </body>
 </html>
